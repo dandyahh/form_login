@@ -44,4 +44,11 @@ class User_model extends CI_Model {
         $this->db->update('users', ['status' => $status]);
         return $this->db->affected_rows();
     }
+
+    public function get_user_login_status($user_id) {
+        $this->db->where('user_id', $user_id);
+        $this->db->order_by('created_at', 'DESC');
+        $this->db->limit(1);
+        return $this->db->get('login_attempts')->row();
+    }
 }
