@@ -12,7 +12,7 @@
         <div class="container">
             <a class="navbar-brand" href="#">Admin Panel</a>
             <div class="navbar-nav ms-auto">
-                <a href="<?= site_url('auth/logout') ?>" class="nav-link">Logout</a>
+                <a href="<?= site_url('admin/logout') ?>" class="nav-link">Logout</a>
             </div>
         </div>
     </nav>

@@ -37,7 +37,7 @@ $config['index_page'] = ''; // pastikan kosong
 | variable so that it is blank.
 |
 */
-$config['index_page'] = 'index.php';
+$config['index_page'] = '';
 
 /*
 |--------------------------------------------------------------------------
