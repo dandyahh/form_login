@@ -18,7 +18,7 @@
                         <div class="alert alert-danger">
                             <?= $this->session->flashdata('message') ?: 'Login Anda telah ditolak oleh admin.' ?>
                         </div>
-                        <a href="<?= site_url('auth') ?>" class="btn btn-primary">Kembali ke Login</a>
+                        <a href="<?= site_url('auth/login') ?>" class="btn btn-primary">Kembali ke Login</a>
                     </div>
                 </div>
             </div>

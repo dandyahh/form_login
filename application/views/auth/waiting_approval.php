@@ -18,7 +18,7 @@
                         <div class="alert alert-info">
                             <?= $this->session->flashdata('message') ?: 'Akun Anda sedang menunggu persetujuan admin.' ?>
                         </div>
-                        <a href="<?= site_url('auth') ?>" class="btn btn-primary">Kembali ke Login</a>
+                        <a href="<?= site_url('auth/login') ?>" class="btn btn-primary">Kembali ke Login</a>
                     </div>
                 </div>
             </div>

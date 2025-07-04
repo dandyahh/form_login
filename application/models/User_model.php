@@ -51,4 +51,11 @@ class User_model extends CI_Model {
         $this->db->limit(1);
         return $this->db->get('login_attempts')->row();
     }
+
+    public function get_approved_users() {
+    $this->db->where('status', 'approved');
+    $this->db->where('role', 'user');
+    return $this->db->get('users')->result();
+}
+
 }
