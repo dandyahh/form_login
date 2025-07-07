@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -109,3 +110,5 @@
   </script>
 </body>
 </html>
+=======
+>>>>>>> 6dda10cceb3bcd7f1d4e85535d7145f46b7a1765

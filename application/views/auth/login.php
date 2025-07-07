@@ -29,6 +29,7 @@
     <div class="col-md-6 p-5">
       <h3 class="mb-4 text-center text-light">Login</h3>
 
+<<<<<<< HEAD
 <?php if ($this->session->flashdata('success')): ?>
   <div class="alert alert-success"><?= $this->session->flashdata('success') ?></div>
 <?php endif; ?>
@@ -37,6 +38,11 @@
   <div class="alert alert-danger"><?= $this->session->flashdata('error') ?></div>
 <?php endif; ?>
 
+=======
+      <?php if ($this->session->flashdata('error')): ?>
+        <div class="alert alert-danger"><?= $this->session->flashdata('error') ?></div>
+      <?php endif; ?>
+>>>>>>> 6dda10cceb3bcd7f1d4e85535d7145f46b7a1765
 
       <form action="<?= site_url('auth/login') ?>" method="post">
         <div class="mb-3">

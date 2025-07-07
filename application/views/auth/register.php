@@ -66,7 +66,11 @@
         </div>
 
         <div class="text-center text-light small">
+<<<<<<< HEAD
           <p>Sudah punya akun? <a href="<?= site_url('auth/login') ?>" class="link-info fw-semibold">Login disini</a></p>
+=======
+          <p>Sudah punya akun? <a href="<?= site_url('auth') ?>" class="link-info fw-semibold">Login disini</a></p>
+>>>>>>> 6dda10cceb3bcd7f1d4e85535d7145f46b7a1765
         </div>
       </form>
     </div>
