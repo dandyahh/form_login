@@ -19,16 +19,6 @@
     <div class="container mt-4">
         <div class="alert alert-success">
             <h4>Selamat datang, <?= $this->session->userdata('username') ?>!</h4>
-            <p>Status login Anda: 
-                <?php if ($login_status->status == 'approved'): ?>
-                    <span class="badge bg-success">Disetujui</span>
-                <?php elseif ($login_status->status == 'rejected'): ?>
-                    <span class="badge bg-danger">Ditolak</span>
-                <?php else: ?>
-                    <span class="badge bg-warning">Menunggu</span>
-                <?php endif; ?>
-            </p>
-            <p>Terakhir login: <?= date('d M Y H:i', strtotime($login_status->created_at)) ?></p>
         </div>
         
         <div class="card">

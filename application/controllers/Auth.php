@@ -46,13 +46,15 @@ class Auth extends CI_Controller {
                             redirect('user/dashboard');
                             break;
                         case 'pending':
-                            $this->session->set_flashdata('message', 'Menunggu persetujuan admin');
-                            redirect('auth/waiting_approval');
-                            break;
-                        case 'rejected':
-                            $this->session->set_flashdata('message', 'Login Anda ditolak oleh admin');
-                            redirect('auth/login_rejected');
-                            break;
+                        $this->session->set_flashdata('error', 'Menunggu persetujuan admin');
+                        redirect('auth');
+                        break;
+
+                                            case 'rejected':
+                        $this->session->set_flashdata('error', 'Login Anda ditolak oleh admin');
+                        redirect('auth/login');
+                        break;
+
                     }
                 }
             } else {
@@ -60,14 +62,6 @@ class Auth extends CI_Controller {
                 redirect('auth');
             }
         }
-    }
-
-    public function waiting_approval() {
-        $this->load->view('auth/waiting_approval');
-    }
-
-    public function login_rejected() {
-        $this->load->view('auth/login_rejected');
     }
 
     public function register() {
@@ -87,7 +81,7 @@ class Auth extends CI_Controller {
 
             if ($this->User_model->register($data)) {
                 $this->session->set_flashdata('success', 'Registrasi berhasil. Tunggu persetujuan admin.');
-                redirect('auth');
+                redirect('auth/login');
             } else {
                 $this->session->set_flashdata('error', 'Registrasi gagal');
                 redirect('auth/register');

@@ -9,17 +9,20 @@ class Admin extends CI_Controller {
         $this->load->library('session');
         $this->load->helper(['url', 'form']);
 
-        // Cek session kecuali method login & logout
+        // Batasi akses hanya untuk admin yang sudah login
         $current_method = $this->router->fetch_method();
-        if (!in_array($current_method, ['login', 'logout'])) {
-            if (!$this->session->userdata('logged_in') || $this->session->userdata('role') != 'admin') {
+        $allowed_methods = ['login', 'logout'];
+
+        if (!in_array($current_method, $allowed_methods)) {
+            if (!$this->session->userdata('logged_in') || $this->session->userdata('role') !== 'admin') {
                 redirect('admin/login');
             }
         }
     }
 
     public function login() {
-        if ($this->session->userdata('logged_in') && $this->session->userdata('role') == 'admin') {
+        // Jika sudah login sebagai admin, langsung ke dashboard
+        if ($this->session->userdata('logged_in') && $this->session->userdata('role') === 'admin') {
             redirect('admin/dashboard');
         }
 
@@ -27,21 +30,21 @@ class Admin extends CI_Controller {
         $this->form_validation->set_rules('username', 'Username', 'required');
         $this->form_validation->set_rules('password', 'Password', 'required');
 
-        if ($this->form_validation->run() == FALSE) {
+        if ($this->form_validation->run() === FALSE) {
             $this->load->view('admin/login');
         } else {
             $username = $this->input->post('username');
             $password = $this->input->post('password');
 
-            // LOGIN ADMIN MENGGUNAKAN TABEL admin
             $user = $this->User_model->login_admin($username, $password);
 
             if ($user) {
+                // Set session admin
                 $this->session->set_userdata([
                     'logged_in' => TRUE,
                     'user_id'   => $user->id,
                     'username'  => $user->username,
-                    'role'      => 'admin' // role diset langsung
+                    'role'      => 'admin'
                 ]);
                 redirect('admin/dashboard');
             } else {
@@ -52,25 +55,31 @@ class Admin extends CI_Controller {
     }
 
     public function dashboard() {
-        $data['pending_users'] = $this->User_model->get_pending_users();
+        $data['all_users'] = $this->User_model->get_all_users(); // Ambil semua user
         $this->load->view('admin/dashboard', $data);
     }
 
     public function approve_user($user_id) {
-        if ($this->User_model->update_user_status($user_id, 'approved')) {
-            $this->session->set_flashdata('success', 'User berhasil disetujui');
+        $success = $this->User_model->update_user_status($user_id, 'approved');
+
+        if ($success) {
+            $this->session->set_flashdata('success', '✅ User berhasil disetujui.');
         } else {
-            $this->session->set_flashdata('error', 'Gagal menyetujui user');
+            $this->session->set_flashdata('error', '❌ Gagal menyetujui user.');
         }
+
         redirect('admin/dashboard');
     }
 
     public function reject_user($user_id) {
-        if ($this->User_model->update_user_status($user_id, 'rejected')) {
-            $this->session->set_flashdata('success', 'User berhasil ditolak');
+        $success = $this->User_model->update_user_status($user_id, 'rejected');
+
+        if ($success) {
+            $this->session->set_flashdata('error', '❌ User berhasil ditolak.'); // tetap merah
         } else {
-            $this->session->set_flashdata('error', 'Gagal menolak user');
+            $this->session->set_flashdata('error', '❌ Gagal menolak user.');
         }
+
         redirect('admin/dashboard');
     }
 
